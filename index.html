@@ -12,6 +12,10 @@
 
     <script src="config.js"></script>
     <script>
+      document
+        .getElementByID("refresh")
+        .addEventListener("click", fetchContact);
+
       function fetchContacts() {
         fetch(rootPath + "controller/get-contacts/")
           .then(function (response) {
