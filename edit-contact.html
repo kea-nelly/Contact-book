@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <title></title>
   </head>
-  <body>
+  <body onload="getContacts()">
     <div id="avatarImage"></div>
     <form id="editForm">
       <label for="firstname">First name</label>
@@ -22,7 +22,7 @@
       ><br />
       <input type="file" name="avatar" id="avatar" hidden /><br />
 
-      <button type="submit" id="submitForm">Submit</button>
+      <button type="submit" id="submitForm" hidden>Submit</button>
     </form>
     <br />
     <br />
@@ -31,6 +31,32 @@
     <button id="deleteContact" type="button">Delete</button>
 
     <script src="config.js"></script>
-    <script></script>
+    <script>
+      var id = getId();
+      document.getElementById("homeLink").addEventListener("click", homeLink);
+      console.log("This id is:" + id);
+
+      function getId() {
+        var url = window.location.href;
+        var pos = url.search("#");
+        var id = url.slice(pos + 1);
+        return id;
+      }
+
+      function getContacts() {
+        fetch(rootPath + "controller/get-contacts/?id=" + id)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            //display contact info
+            console.log(data);
+          });
+      }
+
+      function homeLink() {
+        window.open("index.html", "_self");
+      }
+    </script>
   </body>
 </html>
